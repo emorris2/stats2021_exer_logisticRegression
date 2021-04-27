@@ -29,7 +29,7 @@ for (i in packages){
 }
 ```
 
-```{r}
+```{r eval=FALSE}
 # load each package into memory so it can be used in the script
 for (i in packages){
   library(i,character.only=TRUE)
@@ -46,11 +46,11 @@ Logistic regression is a type of generalization of the linear model. This assign
 
 The rio package works for importing several different types of data files. We're going to use it in this class. There are other packages which can be used to open datasets in R. You can see several options by clicking on the Import Dataset menu under the Environment tab in RStudio. (For a csv file like we have this week we'd use either From Text(base) or From Text (readr). Try it out to see the menu dialog.)
 
-```{r}
+```{r eval=FALSE}
 # Using the file.choose() command allows you to select a file to import from another folder.
 dataset <- rio::import(file.choose())
 # This command will allow us to import a file included in our project folder.
-# dataset <- rio::import("Album Sales.sav")
+# dataset <- rio::import("Eel.sav")
 ```
 
 ## glm() function in R
@@ -59,7 +59,7 @@ Most of the analyses we've looked at this semester have been forms of the linear
 
 Change the categorical variables to factors
 
-```{r}
+```{r eval=FALSE}
 # Make factors
 dataset <- dataset %>% mutate(Cured_f = as.factor(Cured))
 levels(dataset$Cured_f)
@@ -69,12 +69,12 @@ levels(dataset$Intervention_f)
 ```
 
 
-```{r}
+```{r eval=FALSE}
 modelLog <- glm(Cured_f ~ Intervention_f + Duration, data = dataset, family = binomial)
 
 ```
 
-```{r}
+```{r eval=FALSE}
 round(coef(modelLog), 1)
 summary(modelLog)
 confint(modelLog)
@@ -100,7 +100,7 @@ change data = data to data = dataset (or whatever you name your dataframe)
 change ref = "Not Cured" to ref = "0"
 change ref = "No Treatment" to ref = "0"
 
-```{r}
+```{r eval=FALSE}
 output = jmv::logRegBin(
     data = dataset,
     dep = Cured,
